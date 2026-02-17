@@ -1,0 +1,29 @@
+<div class="container">
+    <h1 class="title">Movie Search App</h1>
+    <p class="subtitle">Search for your favorite movies/Series by name</p>
+
+    <div class="search-box">
+        <input type="text" placeholder="Drop the name here..." [(ngModel)]="title" (keyup.enter)="getResponse()" />
+        <button (click)="getResponse()" class="search-btn">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+
+    <div class="movies-grid">
+        @if(showProgessbar){
+        <p class="loader"></p>
+        }
+
+        @if(!showProgessbar){
+        @for (res of response; track $index) {
+        <div class="movie-card" [style.dispay]="showProgessbar?'none':'Grid'">
+            <img [src]="res.Poster" alt="{{res.Title}}" />
+            <div class="movie-info">
+                <h3 class="movie-title">{{ res.Title }}</h3>
+                <span class="movie-year">Released: {{ res.Year }}</span>
+            </div>
+        </div>
+        }
+        }
+    </div>
+</div>
