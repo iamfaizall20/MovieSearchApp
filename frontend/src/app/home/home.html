@@ -1,4 +1,5 @@
 <div class="container">
+
     <h1 class="title">Movie Search App</h1>
     <p class="subtitle">Search for your favorite movies/Series by name</p>
 
@@ -9,6 +10,16 @@
             <i class="fa fa-search"></i>
         </button>
     </div>
+
+    <!-- RESULT INFO -->
+    @if(totalResults && !showProgessbar){
+    <div class="result-info">
+        <p>
+            Showing <strong>{{ response.length }}</strong> of
+            <strong>{{ totalResults }}</strong> results
+        </p>
+    </div>
+    }
 
     <div class="movies-grid">
 
@@ -25,13 +36,21 @@
 
         <div class="movie-card">
 
-            <img [src]="res.Poster === 'N/A' ? defaultPoster : res.Poster" (error)="handleImageError($event)"
-                alt="{{res.Title}}" />
+            <div class="poster-wrapper">
+                <img [src]="res.Poster !== 'N/A' ? res.Poster : defaultPoster" alt="{{res.Title}}" />
+
+                <span class="type-badge">
+                    {{ res.Type }}
+                </span>
+            </div>
 
             <div class="movie-info">
-                <h3 class="movie-title">{{ res.Title }}</h3>
+                <h3 class="movie-title">
+                    {{ res.Title }}
+                </h3>
+
                 <span class="movie-year">
-                    Released: {{ res.Year }}
+                    {{ res.Year }}
                 </span>
             </div>
 
@@ -41,4 +60,5 @@
         }
 
     </div>
+
 </div>

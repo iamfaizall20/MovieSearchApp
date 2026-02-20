@@ -18,6 +18,7 @@ export class Home {
   showErrorMessage: boolean = false;
   response: any[] = [];
   title: string = '';
+  totalResults: string = '';
 
   defaultPoster: string = 'assets/no-image.png';
 
@@ -28,6 +29,7 @@ export class Home {
     this.showProgessbar = true;
     this.showErrorMessage = false;
     this.response = [];
+    this.totalResults = '';
 
     this.http.get(
       `http://localhost/moviesearchapp/backend/api.php?title=${encodeURIComponent(this.title)}`
@@ -38,6 +40,7 @@ export class Home {
 
         if (res.Search && res.Search.length > 0) {
           this.response = res.Search;
+          this.totalResults = res.totalResults;
           this.showErrorMessage = false;
         } else {
           this.showErrorMessage = true;
@@ -49,14 +52,4 @@ export class Home {
       }
     });
   }
-
-  // Fallback for broken image links
-  handleImageError(event: any) {
-    const img = event.target as HTMLImageElement;
-
-    if (img.src !== this.defaultPoster) {
-      img.src = this.defaultPoster;
-    }
-  }
-
 }
